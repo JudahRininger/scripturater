@@ -155,12 +155,12 @@ router.put( '/words/:wordId/ratings/:ratingId', (req, res)=> {
   const wordId = req.params.wordid;
   const ratingId = req.params.ratingId;
 
-  const rating = ratings.find( r => r.id === wordId );
+  const rating = ratings.find( r => r.id === ratingId );
 
   if( rating ){
     ratings.forEach(rate => {
       if(rate.id == ratingId) {
-        rate.rating = "like";
+        rate.rating = req.body.rating;
       }
     });
     res.send(rating);
@@ -176,10 +176,9 @@ router.put( '/words/:wordId/ratings/:ratingId', (req, res)=> {
 /* delete an existing rating object for a given word
 */
 router.delete( '/words/:wordId/ratings/:ratingId', (req, res)=> {
-  const wordId = req.params.wordid;
   const ratingId = req.params.ratingId;
 
-  const rating = ratings.find( r => r.id === wordId );
+  const rating = ratings.find( r => r.id === ratingId );
 
   if( rating ){
     ratings = ratings.filter( r => r.id != ratingId );
